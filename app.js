@@ -1,21 +1,16 @@
-let express = require('express');
-let app = express();
-let port = process.env.PORT||9120;
-let Mongo = require('mongodb');
+const { application } = require('express');
+let express=require('express');
+let app=express();
+let {dbConnect,getData,postData,deleteOrder} = require('./controller/dbcontroller');
+let Mongo = require('mongodb')
 const bodyParser = require('body-parser');
 const cors = require('cors');
-let {dbConnect,getData,postData,deleteOrder} = require('./controller/dbController')
 
-// middleware
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors())
-
-
-app.get('/',(req,res) => {
-    res.send('Hiii From express')
-})
-
 
 
 app.get('/sub_category',async (req ,res)=>{
@@ -63,6 +58,7 @@ app.get('/filter/:sub_category_id', async(req,res) =>{
     let output = await getData (collection, query);
     res.send(output);
 })
+
 
 //details
 
@@ -118,7 +114,7 @@ app.post('/placeOrder',async(req,res) => {
 
 //add product to cart
 
-app.post('/addCart',async(req,res) => {
+app.post('/addtocart',async(req,res) => {
     let data = req.body;
     let collection = "cart";
     console.log(">>>",data)
@@ -136,7 +132,7 @@ app.delete('/deleteOrder',async(req,res) => {
     res.send(output)
 })
 
-app.delete('/deleteCart',async(req,res) => {
+app.delete('/deleteCart-product',async(req,res) => {
     let collection = 'cart';
     let condition = {"_id":new Mongo.ObjectId(req.body._id)}
     let output = await deleteOrder(collection,condition)
@@ -146,8 +142,8 @@ app.delete('/deleteCart',async(req,res) => {
 
 
 
-app.listen(port,(err) => {
-    dbConnect()
+app.listen(2022,(err)=>{
+    dbConnect();
     if(err) throw err;
-    console.log(`Server is running on port ${port}`)
+    console.log('server is runnig on port 2022')
 })
