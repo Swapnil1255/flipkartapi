@@ -1,18 +1,16 @@
-const { application } = require('express');
-let express=require('express');
-let app=express();
-let {dbConnect,getData,postData,deleteOrder} = require('./controller/dbController');
-let Mongo = require('mongodb')
+let express = require('express');
+let app = express();
+let port = process.env.PORT||9120;
+let Mongo = require('mongodb');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-let port = process.env.PORT||9120;
+let {dbConnect,getData,postData,updateOrder,deleteOrder} = require('./controller/dbController')
 
-
-
-
+// middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors())
+
 
 app.get('/',(req,res) => {
     res.send('Hiii From express')
@@ -148,8 +146,8 @@ app.delete('/deleteCart-product',async(req,res) => {
 
 
 
-app.listen(port,(err)=>{
-    dbConnect();
+app.listen(port,(err) => {
+    dbConnect()
     if(err) throw err;
-    console.log('server is runnig on port ${port}')
+    console.log(`Server is running on port ${port}`)
 })
