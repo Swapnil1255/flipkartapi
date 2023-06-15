@@ -5,12 +5,19 @@ let {dbConnect,getData,postData,deleteOrder} = require('./controller/dbControlle
 let Mongo = require('mongodb')
 const bodyParser = require('body-parser');
 const cors = require('cors');
+let port = process.env.PORT||9120;
+
 
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors())
+
+app.get('/',(req,res) => {
+    res.send('Hiii From express')
+})
+
 
 
 app.get('/sub_category',async (req ,res)=>{
@@ -141,8 +148,8 @@ app.delete('/deleteCart-product',async(req,res) => {
 
 
 
-app.listen(2022,(err)=>{
+app.listen(port,(err)=>{
     dbConnect();
     if(err) throw err;
-    console.log('server is runnig on port 2022')
+    console.log('server is runnig on port ${port}')
 })
