@@ -12,6 +12,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors())
 
+app.get('/',(req,res) => {
+    res.send('Hiii From swapnil')
+})
+
 
 app.get('/sub_category',async (req ,res)=>{
     let query = {};
