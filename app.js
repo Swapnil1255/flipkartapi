@@ -4,7 +4,7 @@ let port = process.env.PORT||9120;
 let Mongo = require('mongodb');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-let {dbConnect,getData,postData,updateOrder,deleteOrder} = require('./controller/dbController')
+let {dbConnect,getData,postData,deleteOrder} = require('./controller/dbController')
 
 // middleware
 app.use(bodyParser.json());
@@ -118,7 +118,7 @@ app.post('/placeOrder',async(req,res) => {
 
 //add product to cart
 
-app.post('/addtocart',async(req,res) => {
+app.post('/addCart',async(req,res) => {
     let data = req.body;
     let collection = "cart";
     console.log(">>>",data)
@@ -136,7 +136,7 @@ app.delete('/deleteOrder',async(req,res) => {
     res.send(output)
 })
 
-app.delete('/deleteCart-product',async(req,res) => {
+app.delete('/deleteCart',async(req,res) => {
     let collection = 'cart';
     let condition = {"_id":new Mongo.ObjectId(req.body._id)}
     let output = await deleteOrder(collection,condition)
