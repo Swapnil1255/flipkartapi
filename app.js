@@ -14,6 +14,12 @@ app.use(cors())
 
 app.get('/category',async(req,res) => {
     let query = {};
+    if(req.query.category_id){
+        query={category_id: Number(req.query.category_id)}
+    }
+    else{
+        query={};
+    }
     let collection = "Category";
     let output = await getData(collection,query);
     res.send(output)
