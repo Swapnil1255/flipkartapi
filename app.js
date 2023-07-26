@@ -81,7 +81,7 @@ app.get('/filter/:sub_category_id', async(req,res) =>{
 app.get('/details/:pid',async(req,res) => {
     let id = Number(req.params.pid);
     let query = {pid:id};
-    let collection = "product";
+    let collection = "products";
     let output = await getData(collection,query);
     res.send(output)
 })
