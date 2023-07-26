@@ -69,13 +69,21 @@ app.get('/filter/:sub_category_id', async(req,res) =>{
 
 //details
 
-app.get('/details/pid', async(req,res)=>{
+app.get('/details/:pid', async(req,res)=>{
     let id = new Mongo.ObjectId(req.params.pid)
     let query = {pid:id}
     let collection = "products";
     let output = await getData(collection,query);
     res.send(output)
 
+})
+
+app.get('/details/:pid',async(req,res) => {
+    let id = Number(req.params.pid);
+    let query = {pid:id};
+    let collection = "products";
+    let output = await getData(collection,query);
+    res.send(output)
 })
 
  //orders
